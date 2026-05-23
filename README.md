@@ -1,5 +1,8 @@
 # Holehe Email OSINT
 
+📦 **Open source · MIT:** [github.com/AnshumanAtrey/holehe-email-osint](https://github.com/AnshumanAtrey/holehe-email-osint)
+
+
 Check if an email is registered on 120+ websites without alerting the target.
 
 ## What It Does
