@@ -1,0 +1,5 @@
+holehe>=1.61
+apify>=2.0.0
+apify-client>=1.7.0
+trio>=0.23.0
+httpx>=0.25.0

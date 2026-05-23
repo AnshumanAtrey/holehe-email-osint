@@ -1,0 +1,10 @@
+{
+  "name": "holehe-email-osint",
+  "version": "1.0.0",
+  "description": "Check if an email is registered on 120+ websites without alerting the target",
+  "author": "Apify",
+  "license": "GPL-3.0",
+  "scripts": {
+    "start": "python -u main.py"
+  }
+}

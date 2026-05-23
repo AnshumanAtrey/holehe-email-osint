@@ -1,0 +1,14 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Holehe Email OSINT Output",
+    "description": "Discovered accounts registered to a target email address across 120+ websites. Records are pushed individually per platform where the email is registered, plus one summary record with aggregate counts.",
+    "type": "object",
+    "properties": {
+        "discoveredAccounts": {
+            "type": "string",
+            "title": "Discovered Accounts",
+            "description": "One record per platform where the email is registered. Each record contains: `email`, `platform`, `category` (social/work/finance/etc.), `domain`, `emailrecovery` (partial recovery email hint if available), `phoneNumber` (partial phone hint if available), and `others` (platform-specific metadata). The final item is always a `summary` record with counts of accountsFound, totalChecked, rateLimited, and a list of platforms where the email was found.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}

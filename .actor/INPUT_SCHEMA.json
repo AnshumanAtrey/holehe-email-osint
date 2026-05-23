@@ -1,0 +1,43 @@
+{
+    "title": "Holehe Email OSINT Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "email": {
+            "title": "Email Address",
+            "type": "string",
+            "description": "Email address to check across 120+ platforms",
+            "editor": "textfield",
+            "example": "test@example.com",
+            "prefill": "test@example.com",
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+        },
+        "onlyUsed": {
+            "title": "Only Show Used Accounts",
+            "type": "boolean",
+            "description": "Show only platforms where email is registered",
+            "default": true,
+            "example": true,
+            "editor": "checkbox"
+        },
+        "noPasswordRecovery": {
+            "title": "Skip Password Recovery Methods",
+            "type": "boolean",
+            "description": "Skip platforms that use password recovery detection (adobe, mail.ru, odnoklassniki, samsung)",
+            "default": false,
+            "example": false,
+            "editor": "checkbox"
+        },
+        "timeout": {
+            "title": "Timeout (seconds)",
+            "type": "integer",
+            "description": "Maximum time to wait for each platform check",
+            "default": 30,
+            "example": 30,
+            "minimum": 10,
+            "maximum": 120,
+            "editor": "number"
+        }
+    },
+    "required": ["email"]
+}
