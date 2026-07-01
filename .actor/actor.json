@@ -2,7 +2,7 @@
     "actorSpecification": 1,
     "name": "holehe-email-osint",
     "title": "Holehe Email OSINT - Find Registered Accounts",
-    "description": "Check if an email is registered on 120+ websites (Instagram, Twitter, GitHub, Discord, Amazon, Spotify, etc.) without alerting the target. Perfect for OSINT investigations and security research.",
+    "description": "Check if one or many emails are registered on 120+ websites (Instagram, GitHub, Discord, Amazon, Spotify and more) without alerting the target. Bulk-ready: check a whole list in one run. For OSINT investigations, fraud checks, and security research.",
     "version": "1.0",
     "meta": {
         "templateId": "python-start"
@@ -20,6 +20,7 @@
                     "title": "Accounts Found",
                     "transformation": {
                         "fields": [
+                            "recordType",
                             "email",
                             "platform",
                             "category",
@@ -31,6 +32,7 @@
                     "display": {
                         "component": "table",
                         "properties": {
+                            "recordType": { "label": "Type", "format": "text" },
                             "email": { "label": "Email", "format": "text" },
                             "platform": { "label": "Platform", "format": "text" },
                             "category": { "label": "Category", "format": "text" },

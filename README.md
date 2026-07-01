@@ -1,34 +1,34 @@
 # Holehe Email OSINT - Find Registered Accounts
 
-Cloud-hosted holehe for reverse email lookup and account enumeration across 120+ online platforms without alerting the target.
+Reverse email lookup across 120+ online platforms without alerting the target. Check one email, or paste a whole list to check them in bulk. No login, no cookies, no API key.
 
-Available as an [Apify Actor](https://apify.com/anshumanatrey/holehe-email-osint). Pay-per-event. Cheaper than Maltego CE or Spiderfoot HX for ad-hoc OSINT.
+Available as an [Apify Actor](https://apify.com/anshumanatrey/holehe-email-osint). Pay only per email checked and per account found. No login, no cookies, no API key.
 
 ---
 
 ## What does it do?
 
-Takes an email address and determines which of 120+ online platforms (Instagram, GitHub, Discord, Amazon, Spotify, Twitter, Microsoft, Adobe, LinkedIn, plus 110+ more) have an account registered to it. Each platform check is a separate dataset record with platform name, exists flag, and any recovery hints leaked by the platform's forgot-password endpoint. No login. No cookies. No alerts to the target.
+Give it an email, or a whole list, and it finds which of 120+ online platforms (Instagram, GitHub, Discord, Amazon, Spotify, LinkedIn, plus 110+ more) have an account registered to it. We clean each address (trim, lowercase, drop mailto: and stray characters), check the list concurrently, and return one summary per email plus one record per account found, including any recovery hint the site leaks. No login, no cookies, no alerts to the target.
 
 ## How is it different from manual checks across each platform?
 
 | | manual checks across each platform | This actor |
 |---|---|---|
-| Sites checked | 1 at a time, manually | 120+ in parallel per email |
-| Setup | Python + holehe install + 30+ dependencies | Cloud, zero install, BYOK if needed |
-| Output | Terminal log, unstructured | Structured per-platform dataset records |
+| Emails per run | 1 at a time, manually | Up to 100, checked concurrently |
+| Sites checked | 1 at a time | 120+ in parallel per email |
+| Input | Exact address only | Paste any list, we clean and de-dupe it |
+| Output | Terminal log, unstructured | One clean row per account, export to CSV or CRM |
 | Alerts | Some platforms email the target | All checks chosen to be alert-free |
-| Cost | Free CLI but your time | Pay-per-event, scales to bulk |
 
 1,062+ users and 4,279+ runs on Apify Store as of 2026-05-29. Outperforms `s-r/apifyosintemail` (865 users) in adoption.
 
 ## When should I use it?
 
-- OSINT investigation - find the digital footprint of a target email
-- Bug bounty - identify which services a target email is registered on for credential-stuffing prevention research
-- Fraud investigation - check if a scam email has Amazon, Spotify, or banking accounts
-- Pre-acquisition due diligence on a founder's online footprint
-- Background check by email
+- Fraud and trust teams - check whether an email has accounts on banking, shopping, or crypto sites
+- Account discovery - map every service an email is registered on, in one run
+- Bulk risk screening - run a whole signup or lead list and flag which emails are real and active
+- Background checks and due diligence - profile an email's footprint before a hire or a deal
+- OSINT and security research - reverse email lookup across 120+ platforms, alert-free
 
 ## What does it cost?
 
@@ -49,8 +49,10 @@ Pay-per-event:
 
 | Field | Required | What it does |
 |---|---|---|
-| `emails` | yes | array of email addresses to check |
-| `platforms` | no | optional whitelist if you only want specific platforms |
+| `emails` | yes | One or many email addresses. Paste a list to check them all in one bulk run (up to 100). |
+| `onlyUsed` | no | Only record sites where the email is registered. On by default. |
+| `noPasswordRecovery` | no | Skip the few password-recovery-based checks (Adobe, Mail.ru, and similar). |
+| `timeout` | no | Per-site time limit in seconds. Default 30. |
 
 ## What does the output look like?
 
@@ -58,22 +60,28 @@ Each dataset record:
 
 ```json
 {
+  "recordType": "account",
   "email": "target@example.com",
-  "platform": "github",
+  "platform": "GitHub",
   "exists": true,
+  "category": "coding",
+  "domain": "github.com",
   "emailrecovery": "t***@e***.com",
-  "phoneNumber": null,
-  "others": null
+  "phoneNumber": null
 }
 ```
 
 ## Common questions
 
-**Q: Does holehe send alerts to the target?** No. All 120+ platform checks use endpoints chosen to be alert-free. Target does not receive any notification.
+**Q: Does holehe send alerts to the target?** No. All 120+ platform checks use endpoints chosen to be alert-free. The target does not receive any notification.
+
+**Q: Is this an email verifier for marketing?** No. holehe finds where an email is registered across sites, for OSINT, fraud, and investigation work. It is not an SMTP deliverability or marketing-hygiene checker.
 
 **Q: Which platforms are covered?** Instagram, GitHub, Discord, Amazon, Spotify, Twitter, Microsoft, Adobe, LinkedIn, Dropbox, Pinterest, Atlassian, Tumblr, Yahoo, plus 100+ more. Upstream holehe maintains the canonical list.
 
-**Q: Can I bulk-process 10,000 emails?** Yes. Provide them as an array. Pay-per-event scales linearly with no minimum monthly fee.
+**Q: Can I check many emails at once?** Yes. Add them to the Emails field (up to 100 per run) and they are checked concurrently. Pay-per-event scales linearly with no minimum. For very large lists, split across runs or call the API in a loop.
+
+**Q: My run found no accounts - why?** The address may simply be unused, or sites rate-limited the checks. Note you pay a small fee per email checked (not per account), so a clean check that finds nothing is still a real result. Try again or raise the timeout.
 
 **Q: Need a platform that holehe doesn't support?** Message the maintainer via LinkedIn (fastest channel). Custom platform additions ship within 1-2 hours.
 

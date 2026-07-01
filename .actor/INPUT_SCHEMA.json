@@ -1,43 +1,48 @@
 {
-    "title": "Holehe Email OSINT Input",
+    "title": "Find where emails are registered",
+    "description": "Check one or many emails across 120+ sites and see where each is registered. Add several to check them all in one bulk run.",
     "type": "object",
     "schemaVersion": 1,
     "properties": {
-        "email": {
-            "title": "Email Address",
-            "type": "string",
-            "description": "Email address to check across 120+ platforms",
-            "editor": "textfield",
-            "example": "test@example.com",
-            "prefill": "test@example.com",
-            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+        "emails": {
+            "title": "Emails",
+            "type": "array",
+            "description": "The email addresses to check. Add one, or paste many to check them all in one run (up to 100). We clean and de-duplicate them, and skip anything that is not a valid address.",
+            "editor": "stringList",
+            "prefill": ["test@example.com"],
+            "example": ["alice@example.com", "bob@example.com"]
         },
         "onlyUsed": {
-            "title": "Only Show Used Accounts",
+            "title": "Only show sites where the email is registered",
             "type": "boolean",
-            "description": "Show only platforms where email is registered",
+            "description": "On by default. Turn this off to also record the sites where the email was not found.",
             "default": true,
-            "example": true,
-            "editor": "checkbox"
+            "editor": "checkbox",
+            "sectionCaption": "Options",
+            "sectionDescription": "The defaults work for most runs - you can leave this section alone."
         },
         "noPasswordRecovery": {
-            "title": "Skip Password Recovery Methods",
+            "title": "Skip password-recovery checks",
             "type": "boolean",
-            "description": "Skip platforms that use password recovery detection (adobe, mail.ru, odnoklassniki, samsung)",
+            "description": "Skip the few sites that detect an account via password recovery (Adobe, Mail.ru, Odnoklassniki, Samsung). Slightly faster, slightly less coverage.",
             "default": false,
-            "example": false,
             "editor": "checkbox"
         },
         "timeout": {
-            "title": "Timeout (seconds)",
+            "title": "Per-site time limit (seconds)",
             "type": "integer",
-            "description": "Maximum time to wait for each platform check",
+            "description": "How long to wait for each site before moving on. Default 30.",
             "default": 30,
-            "example": 30,
             "minimum": 10,
             "maximum": 120,
             "editor": "number"
+        },
+        "email": {
+            "title": "Single email (optional, legacy)",
+            "type": "string",
+            "description": "Optional single email, kept for older integrations. You can use the Emails field above instead.",
+            "editor": "textfield",
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
         }
-    },
-    "required": ["email"]
+    }
 }
