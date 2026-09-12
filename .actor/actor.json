@@ -2,7 +2,7 @@
     "actorSpecification": 1,
     "name": "holehe-email-osint",
     "title": "Holehe Email OSINT - Find Registered Accounts",
-    "description": "Check if one or many emails are registered on 120+ websites (Instagram, GitHub, Discord, Amazon, Spotify and more) without alerting the target. Bulk-ready: check a whole list in one run. For OSINT investigations, fraud checks, and security research.",
+    "description": "Check if an email is registered on 120+ platforms (Instagram, Twitter, GitHub, Discord, etc.) without alerting the target. Perfect for OSINT investigations, security research, and email verification.",
     "version": "1.0",
     "meta": {
         "templateId": "python-start"
@@ -32,13 +32,34 @@
                     "display": {
                         "component": "table",
                         "properties": {
-                            "recordType": { "label": "Type", "format": "text" },
-                            "email": { "label": "Email", "format": "text" },
-                            "platform": { "label": "Platform", "format": "text" },
-                            "category": { "label": "Category", "format": "text" },
-                            "domain": { "label": "Domain", "format": "text" },
-                            "emailrecovery": { "label": "Recovery Email", "format": "text" },
-                            "phoneNumber": { "label": "Phone Hint", "format": "text" }
+                            "recordType": {
+                                "label": "Type",
+                                "format": "text"
+                            },
+                            "email": {
+                                "label": "Email",
+                                "format": "text"
+                            },
+                            "platform": {
+                                "label": "Platform",
+                                "format": "text"
+                            },
+                            "category": {
+                                "label": "Category",
+                                "format": "text"
+                            },
+                            "domain": {
+                                "label": "Domain",
+                                "format": "text"
+                            },
+                            "emailrecovery": {
+                                "label": "Recovery Email",
+                                "format": "text"
+                            },
+                            "phoneNumber": {
+                                "label": "Phone Hint",
+                                "format": "text"
+                            }
                         }
                     }
                 },
@@ -56,15 +77,35 @@
                     "display": {
                         "component": "table",
                         "properties": {
-                            "email": { "label": "Email", "format": "text" },
-                            "accountsFound": { "label": "Accounts Found", "format": "number" },
-                            "totalChecked": { "label": "Total Checked", "format": "number" },
-                            "rateLimited": { "label": "Rate Limited", "format": "number" },
-                            "existsOn": { "label": "Found On", "format": "array" }
+                            "email": {
+                                "label": "Email",
+                                "format": "text"
+                            },
+                            "accountsFound": {
+                                "label": "Accounts Found",
+                                "format": "number"
+                            },
+                            "totalChecked": {
+                                "label": "Total Checked",
+                                "format": "number"
+                            },
+                            "rateLimited": {
+                                "label": "Rate Limited",
+                                "format": "number"
+                            },
+                            "existsOn": {
+                                "label": "Found On",
+                                "format": "array"
+                            }
                         }
                     }
                 }
             }
         }
-    }
+    },
+    "categories": [
+        "DEVELOPER_TOOLS",
+        "OTHER",
+        "SOCIAL_MEDIA"
+    ]
 }

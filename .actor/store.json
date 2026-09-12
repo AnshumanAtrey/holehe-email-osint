@@ -1,0 +1,44 @@
+{
+  "$comment": "Store listing fields that apify push never sends. Applied by scripts/store-metadata.mjs after every deploy. Title, description and categories live in actor.json. The SEO text below is the live text as of 2026-09-12; holehe is the top earner, so change it deliberately, not as a side effect.",
+  "seoTitle": "Email OSINT Tool - Find Registered Accounts on 120+ Sites",
+  "seoDescription": "Reverse email lookup tool. Discover which platforms (Instagram, GitHub, Discord, Amazon, Spotify, 115+ more) an email is registered on. No alerts sent. OSINT & security research.",
+  "exampleRunInput": {
+    "emails": [
+      "test@example.com"
+    ]
+  },
+  "actorPermissionLevel$comment": "Was FULL_PERMISSIONS, which set isWhiteListedForAgenticPayments=false and lowers the quality score. main.py uses only the default dataset, Actor.charge and the status message, all allowed under limited permissions. No rebuild needed for this switch.",
+  "actorPermissionLevel": "LIMITED_PERMISSIONS",
+  "isPublic": true,
+  "defaultRunOptions$comment": "Measured 2026-09-11 on the same 8 emails: 4 GB 32.5 s / 0.0362 CU, 2 GB 34.7 s / 0.0193 CU, 1 GB 52.8 s / 0.0147 CU; peak RSS 150-210 MB. 2 GB halves compute at the same speed; 1 GB is 62% slower. August compute cost was $65.79 on $194 developer revenue, so this is worth about $30/month at that volume.",
+  "defaultRunOptions": {
+    "build": "latest",
+    "memoryMbytes": 2048,
+    "timeoutSecs": 3600
+  },
+  "pricing": {
+    "apply": true,
+    "$comment": "Live pricing, recorded for reference. The CI script only sets prices first-time or reconciles decreases; increases are done by hand (14-day notice). Event names must match Actor.charge() calls in main.py.",
+    "pricingInfos": [
+      {
+        "pricingModel": "PAY_PER_EVENT",
+        "apifyMarginPercentage": 0.2,
+        "pricingPerEvent": {
+          "actorChargeEvents": {
+            "email-check-completed": {
+              "eventTitle": "Email Check Completed",
+              "eventDescription": "Charged once per email checked, covering the scan of 120+ platforms.",
+              "eventPriceUsd": 0.02
+            },
+            "account-found": {
+              "eventTitle": "Account Found",
+              "eventDescription": "Charged for each platform where the email has a registered account. You only pay for actual hits.",
+              "eventPriceUsd": 0.01
+            }
+          }
+        },
+        "reasonForChange": "New value-aligned pricing: $0.02 per email checked + $0.01 per account found. Avg ~$0.05/check. Replaces flat $0.01/result which undercharged for the 120-platform scan."
+      }
+    ]
+  }
+}
