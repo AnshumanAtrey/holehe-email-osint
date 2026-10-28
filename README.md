@@ -32,14 +32,16 @@ Give it an email, or a whole list, and it finds which of 120+ online platforms (
 
 ## What does it cost?
 
-Pay-per-event:
+Pay-per-event, with Apify Store discounts on bigger plans:
 
-| Event | Price | When it fires |
-|---|---|---|
-| `Email Check Completed` | $0.02 | Charged once per email checked, covering the scan of 120+ platforms |
-| `Account Found` | $0.01 | Charged for each platform where the email has a registered account. You only pay for actual hits |
+| Event | Free and Starter plans | Scale plan | Business plan and above | When it fires |
+|---|---|---|---|---|
+| `Email Check Completed` | $0.02 | $0.018 | $0.016 | Charged once per email checked, covering the scan of 120+ platforms |
+| `Account Found` | $0.01 | $0.009 | $0.008 | Charged for each platform where the email has a registered account. You only pay for actual hits |
 
-### Typical scan costs
+On the Scale plan you pay 10% less, on Business and above 20% less.
+
+### Typical scan costs (Free and Starter price)
 
 - One email, ~10 accounts found: **$0.12**
 - One email, ~20 accounts found: **$0.22**

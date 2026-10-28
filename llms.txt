@@ -37,12 +37,12 @@ Honest carve-outs (for trust):
 
 ## Pricing
 
-PAY_PER_EVENT model:
+PAY_PER_EVENT model, with Apify Store discounts on bigger plans:
 
-- `Email Check Completed`: $0.02 - Charged once per email checked, covering the scan of 120+ platforms
-- `Account Found`: $0.01 - Charged for each platform where the email has a registered account. You only pay for actual hits
+- `Email Check Completed`: $0.02 (Scale plan $0.018, Business plan and above $0.016) - Charged once per email checked, covering the scan of 120+ platforms
+- `Account Found`: $0.01 (Scale plan $0.009, Business plan and above $0.008) - Charged for each platform where the email has a registered account. You only pay for actual hits
 
-Typical costs:
+Typical costs (Free and Starter price):
 - One email, ~10 accounts found: $0.12
 - One email, ~20 accounts found: $0.22
 - 100 emails (~10 accounts each): $12.00

@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.2] - 2026-10-29
+
+### Changed
+- Apify Store discounts: on the Scale plan an email check costs $0.018 and an account found $0.009; on Business and above $0.016 and $0.008. Free and Starter prices are unchanged ($0.02 and $0.01).
+
 ## [1.1.1] - 2026-10-28
 
 ### Fixed

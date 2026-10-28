@@ -18,7 +18,7 @@
   },
   "pricing": {
     "apply": true,
-    "$comment": "Live pricing, recorded for reference. The CI script only sets prices first-time or reconciles decreases; increases are done by hand (14-day notice). Event names must match Actor.charge() calls in main.py.",
+    "$comment": "Live pricing, recorded for reference. The CI script only sets prices first-time or reconciles decreases; increases are done by hand (14-day notice). Event names must match Actor.charge() calls in main.py. Store discounts chosen by the owner on 2026-10-29 (Gentle ladder): Free and Starter keep the flat price, Scale pays 10% less, Business and above 20% less. Bulk buyers sit on Scale and Business (Aug-Oct revenue by tier), and the Console quality score asks for Store discounts. Deepening is immediate; undoing is an increase (14 days' notice). Review revenue by tier in mid-November.",
     "pricingInfos": [
       {
         "pricingModel": "PAY_PER_EVENT",
@@ -28,16 +28,55 @@
             "email-check-completed": {
               "eventTitle": "Email Check Completed",
               "eventDescription": "Charged once per email checked, covering the scan of 120+ platforms.",
-              "eventPriceUsd": 0.02
+              "isPrimaryEvent": true,
+              "eventTieredPricingUsd": {
+                "FREE": {
+                  "tieredEventPriceUsd": 0.02
+                },
+                "BRONZE": {
+                  "tieredEventPriceUsd": 0.02
+                },
+                "SILVER": {
+                  "tieredEventPriceUsd": 0.018
+                },
+                "GOLD": {
+                  "tieredEventPriceUsd": 0.016
+                },
+                "PLATINUM": {
+                  "tieredEventPriceUsd": 0.016
+                },
+                "DIAMOND": {
+                  "tieredEventPriceUsd": 0.016
+                }
+              }
             },
             "account-found": {
               "eventTitle": "Account Found",
               "eventDescription": "Charged for each platform where the email has a registered account. You only pay for actual hits.",
-              "eventPriceUsd": 0.01
+              "eventTieredPricingUsd": {
+                "FREE": {
+                  "tieredEventPriceUsd": 0.01
+                },
+                "BRONZE": {
+                  "tieredEventPriceUsd": 0.01
+                },
+                "SILVER": {
+                  "tieredEventPriceUsd": 0.009
+                },
+                "GOLD": {
+                  "tieredEventPriceUsd": 0.008
+                },
+                "PLATINUM": {
+                  "tieredEventPriceUsd": 0.008
+                },
+                "DIAMOND": {
+                  "tieredEventPriceUsd": 0.008
+                }
+              }
             }
           }
         },
-        "reasonForChange": "New value-aligned pricing: $0.02 per email checked + $0.01 per account found. Avg ~$0.05/check. Replaces flat $0.01/result which undercharged for the 120-platform scan."
+        "reasonForChange": "Store discounts: Scale plans pay 10% less and Business and enterprise plans 20% less. Free and Starter prices are unchanged."
       }
     ]
   }
