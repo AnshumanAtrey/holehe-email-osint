@@ -1,5 +1,5 @@
 holehe>=1.61
-apify>=3.4,<4  # pinned: SDK 4.0 made push_data's charging argument keyword-only (holehe outage 2026-09-12); last good builds ran 3.4.x
+apify>=4.1,<5  # SDK 3.x crashed on APIFY_AI-origin runs (2026-10-27); main.py passes charged_event_name by keyword as SDK 4 requires
 apify-client>=1.7.0
 trio>=0.23.0
 httpx>=0.25.0

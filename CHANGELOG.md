@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.1] - 2026-10-28
+
+### Fixed
+- Runs started from Apify's AI assistant no longer end as FAILED after delivering their results. The old Apify SDK rejected that run type when setting the final status message; the Actor now runs on Apify SDK 4.
+
 ## [1.1.0] - 2026-07-01
 
 ### Added

@@ -170,7 +170,7 @@ async def main():
                         'emailrecovery': r.get('emailrecovery'),
                         'phoneNumber': r.get('phoneNumber'),
                         'others': r.get('others'),
-                    }, 'account-found')
+                    }, charged_event_name='account-found')
 
             totals['emails'] += 1
             totals['accounts'] += found

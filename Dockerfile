@@ -2,10 +2,11 @@
 FROM python:3.11-slim
 
 # Install holehe and Apify SDK
-# Pinned: apify SDK 4.0 (released between builds 1.0.10 and 1.0.11) removed the
-# positional event-name argument of push_data(); every run on the unpinned build
-# failed with "push_data() takes 2 positional arguments but 3 were given".
-RUN pip install --no-cache-dir "holehe==1.61" "apify>=3.4,<4"
+# SDK 4 (apify-client 3.x) is required: SDK 3.x crashed with exit 91 after delivering
+# results on runs started by Apify's AI assistant (run origin APIFY_AI, 2026-10-27).
+# SDK 4 makes push_data's charged_event_name keyword-only, which main.py passes by
+# name. Capped below 5 so a rebuild cannot pull the next major.
+RUN pip install --no-cache-dir "holehe==1.61" "apify>=4.1,<5"
 
 # Copy actor files
 COPY . /app
