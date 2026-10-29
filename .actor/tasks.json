@@ -1,0 +1,68 @@
+{
+  "$comment": "Example tasks published on the Store by scripts/publish-tasks.mjs after every deploy (CI only). Each one is a search people type, with its own Google-indexed landing page and .md (manager/rules/SEO.md). Presets use reserved example.com addresses, never a real person's.",
+  "options": {
+    "build": "latest",
+    "memoryMbytes": 2048,
+    "timeoutSecs": 3600
+  },
+  "tasks": [
+    {
+      "name": "reverse-email-lookup",
+      "title": "Reverse email lookup: find every account registered to an email",
+      "description": "Check one email address against 120+ online platforms, Instagram, GitHub, Discord, Amazon, Spotify and LinkedIn among them, and get each site where it has an account. Alert-free: the address owner is not notified. Replace the example address with yours.",
+      "input": {
+        "emails": [
+          "test@example.com"
+        ],
+        "onlyUsed": true
+      },
+      "seoTitle": "Reverse Email Lookup - Find Accounts by Email",
+      "seoDescription": "Find which of 120+ sites an email is registered on: Instagram, GitHub, Discord, Amazon, Spotify, LinkedIn and more. Alert-free, no login, no API key.",
+      "inputSchemaFields": [
+        "emails",
+        "onlyUsed"
+      ],
+      "datasetView": "overview"
+    },
+    {
+      "name": "bulk-email-account-check",
+      "title": "Bulk email check: the accounts behind each email in a list",
+      "description": "Paste up to 100 email addresses and see, for each one, which of 120+ online platforms have an account registered to it, with a one-row summary per email. Addresses are cleaned and de-duplicated first. Alert-free.",
+      "input": {
+        "emails": [
+          "test@example.com",
+          "info@example.com",
+          "hello@example.com"
+        ],
+        "onlyUsed": true
+      },
+      "seoTitle": "Bulk Email OSINT - Check a List of Emails",
+      "seoDescription": "Check up to 100 emails at once against 120+ platforms and see which sites each is registered on, one summary row per email. Alert-free, no login needed.",
+      "inputSchemaFields": [
+        "emails",
+        "onlyUsed",
+        "timeout"
+      ],
+      "datasetView": "summary"
+    },
+    {
+      "name": "email-account-checker-full-report",
+      "title": "Email account checker: the full report, registered and not",
+      "description": "See every one of the 120+ platforms checked for an email address, with a row for each site where it is registered and each where it is not, so you know exactly what was covered. Alert-free.",
+      "input": {
+        "emails": [
+          "test@example.com"
+        ],
+        "onlyUsed": false
+      },
+      "seoTitle": "Email Account Checker - Full 120+ Site Report",
+      "seoDescription": "Check an email against 120+ sites and get a row for every site, registered or not, so the coverage is plain. Instagram, GitHub, Discord, Spotify and more.",
+      "inputSchemaFields": [
+        "emails",
+        "onlyUsed",
+        "noPasswordRecovery"
+      ],
+      "datasetView": "overview"
+    }
+  ]
+}
