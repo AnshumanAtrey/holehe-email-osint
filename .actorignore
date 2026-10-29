@@ -19,9 +19,8 @@ env/
 .git/
 .gitignore
 
-# Documentation
-*.md
-!README.md
+# Documentation. README.md must stay in the build: the Store listing is built from it.
+CHANGELOG.md
 
 # Tests
 tests/
