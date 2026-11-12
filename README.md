@@ -6,6 +6,13 @@ Available as an [Apify Actor](https://apify.com/anshumanatrey/holehe-email-osint
 
 ---
 
+**Use it from an AI assistant:**
+
+- **Claude** (claude.ai and the desktop app): [Add Holehe Email OSINT to Claude](https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Holehe%20Email%20OSINT&connectorUrl=https%3A%2F%2Fmcp.apify.com%3Ftools%3Danshumanatrey%2Fholehe-email-osint), click Continue, sign in to Apify, Allow, and ask in plain words.
+- **Claude Code:** `claude mcp add --transport http holehe-email-osint "https://mcp.apify.com?tools=anshumanatrey/holehe-email-osint"`, then run `/mcp` to sign in to Apify.
+- **Codex:** `codex mcp add holehe-email-osint --url "https://mcp.apify.com?tools=anshumanatrey/holehe-email-osint"`, then `codex mcp login holehe-email-osint`.
+- **Any other MCP client:** `https://mcp.apify.com?tools=anshumanatrey/holehe-email-osint`, signed in with Apify or an `Authorization: Bearer <APIFY_TOKEN>` header.
+
 ## What does it do?
 
 Give it an email, or a whole list, and it finds which of 120+ online platforms (Instagram, GitHub, Discord, Amazon, Spotify, LinkedIn, plus 110+ more) have an account registered to it. We clean each address (trim, lowercase, drop mailto: and stray characters), check the list concurrently, and return one summary per email plus one record per account found, including any recovery hint the site leaks. No login, no cookies, no alerts to the target.
