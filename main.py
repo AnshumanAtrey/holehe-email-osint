@@ -13,6 +13,7 @@ import holehe.modules as modules
 MAX_EMAILS = 100          # cap per run so a bulk job stays inside the platform time budget
 DEFAULT_CONCURRENCY = 10  # how many emails to check at once (each still checks ~120 sites)
 EMAIL_RE = re.compile(r'^[^@\s]+@[^@\s]+\.[^@\s]+$')
+EXAMPLE_EMAIL = 'test@example.com'  # the form's prefill: checked free when no address is given, instead of failing
 
 
 def clean_email(raw: str) -> str:
@@ -38,10 +39,14 @@ def collect_emails(actor_input: dict):
     """
     raw = []
     ea = actor_input.get('emails')
+    if isinstance(ea, str):
+        ea = [ea]
     if isinstance(ea, list):
-        raw.extend(ea)
-    elif isinstance(ea, str) and ea.strip():
-        raw.extend(re.split(r'[,\s]+', ea.strip()))
+        # Each row may hold several addresses or an address with pasted text after it ("a@b.com https://...", run
+        # pEwcAJgLdOmaajzZ2 failed on that): split every row, keep what is an address, report the rest.
+        for item in ea:
+            if item is not None:
+                raw.extend(re.split(r'[,;\s]+', str(item).strip()))
     single = actor_input.get('email')
     if single:
         raw.append(single)
@@ -110,9 +115,15 @@ async def main():
         emails, invalid = collect_emails(actor_input)
         if invalid:
             Actor.log.warning(f'Skipping {len(invalid)} invalid entries: {invalid[:10]}')
-        if not emails:
+        if not emails and invalid:
             await Actor.fail(status_message='No valid email given. Enter at least one address, e.g. name@example.com.')
             return
+        # No address at all (a blank row passes Apify's input check, and the field is optional through the API):
+        # check the example, free, so the run shows what it returns instead of failing (owner, 2026-11-14).
+        example = not emails
+        if example:
+            emails = [EXAMPLE_EMAIL]
+            Actor.log.warning(f'No email given, so this run checks the example address {EXAMPLE_EMAIL}, free.')
         if len(emails) > MAX_EMAILS:
             Actor.log.warning(f'{len(emails)} emails given; processing the first {MAX_EMAILS} this run.')
             emails = emails[:MAX_EMAILS]
@@ -140,8 +151,9 @@ async def main():
                 check_func = partial(trio.run, run_holehe_checks, email, websites, only_used, timeout)
                 cr = await loop.run_in_executor(executor, check_func)
 
-            # One charge per email actually checked (pay-per-event scales with bulk).
-            await Actor.charge('email-check-completed')
+            # One charge per email actually checked (pay-per-event scales with bulk); the example is free.
+            if not example:
+                await Actor.charge('email-check-completed')
 
             results = cr['results']
             found = cr['accounts_found']
@@ -170,7 +182,7 @@ async def main():
                         'emailrecovery': r.get('emailrecovery'),
                         'phoneNumber': r.get('phoneNumber'),
                         'others': r.get('others'),
-                    }, charged_event_name='account-found')
+                    }, charged_event_name=None if example else 'account-found')
 
             totals['emails'] += 1
             totals['accounts'] += found
@@ -191,6 +203,9 @@ async def main():
                    f"across {totals['with_accounts']} email(s).")
         if invalid:
             msg += f" Skipped {len(invalid)} invalid entr{'y' if len(invalid) == 1 else 'ies'}."
+        if example:
+            msg = (f'No email was given, so this run checked the example address {EXAMPLE_EMAIL}, free of charge. '
+                   f'{msg} Enter your own addresses, one per line.')
         await Actor.set_status_message(msg)
         Actor.log.info(f'✅ {msg}')
 

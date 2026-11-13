@@ -58,7 +58,7 @@ On the Scale plan you pay 10% less, on Business and above 20% less.
 
 | Field | Required | What it does |
 |---|---|---|
-| `emails` | yes | One or many email addresses. Paste a list to check them all in one bulk run (up to 100). |
+| `emails` | yes | One or many email addresses. Paste a list to check them all in one bulk run (up to 100). Left blank, the run checks the example address test@example.com, free. |
 | `onlyUsed` | no | Only record sites where the email is registered. On by default. |
 | `noPasswordRecovery` | no | Skip the few password-recovery-based checks (Adobe, Mail.ru, and similar). |
 | `timeout` | no | Per-site time limit in seconds. Default 30. |

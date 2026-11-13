@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.3] - 2026-11-14
+
+### Changed
+- A run given no email (a blank row, which Apify's input check lets through, or an API call without `emails`) no
+  longer fails with "No valid email given". It checks the example address test@example.com, free of charge, and says
+  so in the status message, so the run shows what it returns.
+- A row holding an address followed by other text, or several addresses separated by spaces, is split, and every
+  address in it is checked (a run with "test@example.com https://snapchat.com/..." in one row failed). The text that
+  is not an address is reported as skipped. Rows with no usable address at all still fail the run with the reason.
+
 ## [1.1.2] - 2026-10-29
 
 ### Changed
